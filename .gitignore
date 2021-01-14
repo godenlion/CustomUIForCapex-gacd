@@ -1,0 +1,49 @@
+# CAP capex data model
+_out
+*.db
+connection.properties
+default-*.json
+gen/
+node_modules/
+*package-lock.json
+target/
+
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+app/resources/
+approuter/resources/
+uideployer/resources/
+*_mta_build_tmp
+*.mtar
+mta_archives/
+
+# Other
+.DS_Store
+*.orig
+*.log
+*.env*
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+.vscode
+.idea
+
+# Source folder of SAP Fiori Tools generated project
+app/countries/dist/
+app/countries/node_modules/
+
+# Source folder of SAP Fiori Tools generated project
+app/currencies/dist/
+app/currencies/node_modules/
+
+# Source folder of SAP Fiori Tools generated project
+app/investmenttypes/dist/
+app/investmenttypes/node_modules/
+
+# Source folder of SAP Fiori Tools generated project
+app/divisions/dist/
+app/divisions/node_modules/

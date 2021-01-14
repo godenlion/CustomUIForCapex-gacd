@@ -1,0 +1,26 @@
+{
+  "name": "divisions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "cd dist && npx bestzip ../divisions-content.zip *",
+    "build": "npm run clean && ui5 build --include-task=generateManifestBundle generateCachebusterInfo && npm run zip",
+    "clean": "npx rimraf divisions-content.zip dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@ui5/cli": "^2.4.2",
+    "bestzip": "2.1.4",
+    "@sap/ui5-builder-webide-extension": "1.0.x",
+    "rimraf": "3.0.2"
+  },
+  "ui5": {
+    "dependencies": [
+      "@sap/ui5-builder-webide-extension"
+    ]
+  }
+}

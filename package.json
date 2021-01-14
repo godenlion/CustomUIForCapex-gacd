@@ -1,0 +1,58 @@
+{
+  "name": "capexreq",
+  "version": "1.0.0",
+  "description": "Capex Requests Management project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^4",
+    "@sap/hana-client": "^2.5.86",
+    "@sap/xsenv": "^3.0.0",
+    "@sap/xssec": "^2.2.5",
+    "@types/jquery": "^3.5.0",
+    "express": "^4",
+    "passport": "^0.4.1"
+  },
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "cds": {
+    "[production]": {
+      "requires": {
+        "db": {
+          "kind": "sql"
+        },
+        "uaa": {
+          "kind": "xsuaa",
+          "credentials": {}
+        }
+      }
+    },
+    "hana": {
+      "syntax": "hdi"
+    }
+  },
+  "devDependencies": {
+    "@sap/eslint-plugin-ui5-jsdocs": "2.0.x",
+    "@sap/ui5-builder-webide-extension": "1.0.x",
+    "@sap/ux-specification": "^1.78.5",
+    "@sapui5/ts-types": "1.71.x",
+    "@ui5/cli": "2.2.6",
+    "bestzip": "2.1.4",
+    "eslint": "5.16.x",
+    "rimraf": "3.0.2",
+    "sqlite3": "^5.0.0"
+  },
+  "ui5": {
+    "dependencies": [
+      "@sap/ui5-builder-webide-extension"
+    ]
+  },
+  "sapux": [
+    "app/countries",
+    "app/currencies",
+    "app/investmenttypes",
+    "app/divisions"
+  ]
+}

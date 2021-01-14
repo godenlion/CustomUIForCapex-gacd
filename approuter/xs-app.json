@@ -1,0 +1,16 @@
+{
+    "welcomeFile": "/cp.portal",
+    "authenticationMethod": "route",
+    "logout": {
+        "logoutEndpoint": "/do/logout"
+    },
+    "routes": [
+        {
+            "authenticationType": "xsuaa",
+            "cacheControl": "no-cache, no-store, must-revalidate",
+            "source": "^/service/(.*)$",
+            "destination": "srv-api",
+            "target": "/service/$1"
+        }
+    ]
+}

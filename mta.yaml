@@ -1,0 +1,287 @@
+_schema-version: "3.1"
+ID: com.sap.bpm.CapexRequestsManagement
+version: 0.0.18
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        # - rm -f package-lock.json
+        # - npm config set package-lock false # use when facing EINTEGRITY errors 
+        - npm install
+        - npx -p @sap/cds-dk cds build --production
+        - >-
+          bash -c 'find gen -type f \( -name '*.csv' -or -name '*.hdbtabledata'
+          \) | xargs rm -f'
+
+# ------------------------------------------------------------
+# ----------------------- MODULES ----------------------------
+modules:
+  # --------------------- SERVER MODULE ------------------------
+  - name: capexdatamodel-srv
+    type: javascript.nodejs
+    build-parameters:
+      builder: npm
+      # builder: custom
+      # commands:
+      # - npm config set package-lock false
+      # - npm install
+      # ignore:
+      #   - node_modules
+    path: gen/srv
+    properties:
+      EXIT: 1 # required by deploy.js task to terminate
+    requires:
+      # Resources extracted from CAP configuration
+      - name: capexdatamodel-db
+      - name: uaa_CapexRequestsManagement
+    provides:
+      - name: srv-binding # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+
+  # --------------------- SIDECAR MODULE ------------------------
+  - name: db
+    type: hdb
+    path: gen/db
+    parameters:
+      app-name: capexdatamodel-db
+    build-parameters:
+      builder: npm
+      # builder: custom
+      # commands:
+      #   - npm config set package-lock false
+      #   - npm install
+      # ignore:
+      #   - node_modules
+    requires:
+      # 'hana' and 'xsuaa' resources extracted from CAP configuration
+      - name: capexdatamodel-db
+      - name: uaa_CapexRequestsManagement
+
+  # --------------------- UI DEPLOYER ---------------------------
+  - name: CapexRequestsManagement_ui_deployer
+    type: com.sap.application.content
+    path: app
+    requires:
+      - name: CapexRequestsManagement_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - countries-content.zip
+          name: countries
+          target-path: resources/
+        - artifacts:
+            - currencies-content.zip
+          name: currencies
+          target-path: resources/
+        - artifacts:
+            - investmenttypes-content.zip
+          name: investmenttypes
+          target-path: resources/
+        - artifacts:
+            - divisions-content.zip
+          name: divisions
+          target-path: resources/
+        - artifacts:
+            - ApproveCapex-content.zip
+          name: ApproveCapex
+          target-path: resources/
+        - artifacts:
+            - StartCapex-content.zip
+          name: StartCapex
+          target-path: resources/
+        - artifacts:
+            - ReworkCapex-content.zip
+          name: ReworkCapex
+          target-path: resources/
+
+  # -------------- MASTER DATA MANAGEMENT APPS -------------------
+  - name: countries
+    type: html5
+    path: app/countries
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  - name: currencies
+    type: html5
+    path: app/currencies
+    build-parameters:
+      # builder: npm
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  - name: investmenttypes
+    type: html5
+    path: app/investmenttypes
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  - name: divisions
+    type: html5
+    path: app/divisions
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  # ------------------- HTML5 BUSINESS APPS ---------------------
+  - name: ApproveCapex
+    type: html5
+    path: app/ApproveCapex
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  - name: StartCapex
+    type: html5
+    path: app/StartCapex
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+  - name: ReworkCapex
+    type: html5
+    path: app/ReworkCapex
+    build-parameters:
+      builder: custom
+      commands:
+        # - npm install
+        - npm run build
+      supported-platforms: []
+
+  # --------------------- FLP CONTENT ---------------------------
+  - name: CapexRequestsManagement_flp
+    type: com.sap.application.content
+    path: flp
+    requires:
+      - name: portal_resources_CapexRequestsManagement
+        parameters:
+          content-target: true
+          service-key:
+            config:
+              content-endpoint: developer
+            name: content-deploy-key
+      - name: uaa_CapexRequestsManagement
+      - name: CapexRequestsManagement_html_repo_host
+      - name: WorkflowMgmt
+      - name: ProcessVisibility
+      - name: Workflow
+      - name: BusinessRules
+
+  # --------------------- FLP APP ROUTER ------------------------
+  - name: CapexRequestsManagement_flp-approuter
+    type: approuter.nodejs
+    path: approuter
+    properties:
+      destinations:
+        - name: srv-api
+          url: "~{srv-binding/srv-url}"
+          forwardAuthToken: true
+    requires:
+      - name: portal_resources_CapexRequestsManagement
+      - name: CapexRequestsManagement_html_repo_runtime
+      - name: uaa_CapexRequestsManagement
+      - name: WorkflowMgmt
+      - name: ProcessVisibility
+      - name: Workflow
+      - name: BusinessRules
+      - name: Destination
+      - name: srv-binding
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    # build-parameters:
+    #   ignore:
+    #     - node_modules # use when facing EINTEGRITY errors 
+  # --------------------------------------------------------------
+
+# --------------------------------------------------------------
+# ---------------------- RESOURCES -----------------------------
+resources:
+  # ------------------------------------------------------------
+  - name: capexdatamodel-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana # or 'hanatrial' on trial landscapes
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+      # ------------------------------------------------------------
+  # ------------------------------------------------------------
+  - name: portal_resources_CapexRequestsManagement
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: portal
+      service-plan: standard
+  # ------------------------------------------------------------
+  - name: CapexRequestsManagement_html_repo_runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+  # ------------------------------------------------------------
+  - name: CapexRequestsManagement_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  # ------------------------------------------------------------
+  - name: uaa_CapexRequestsManagement
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+  # ------------------------------------------------------------
+  - name: Destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  # ------------------------------------------------------------
+  # - name: CapexRequestsManagement-logs
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: application-logs
+  #     service-plan: standard
+  # ------------------------------------------------------------
+  - name: WorkflowMgmt
+    parameters:
+      service-plan: internal
+      service: workflowmanagement
+    type: org.cloudfoundry.managed-service
+  # ------------------------------------------------------------
+  - name: ProcessVisibility
+    parameters:
+      service-plan: standard
+      service: processvisibility
+    type: org.cloudfoundry.managed-service
+  # ------------------------------------------------------------
+  - name: Workflow
+    parameters:
+      service-plan: standard
+      service: workflow
+    type: org.cloudfoundry.existing-service
+  # ------------------------------------------------------------
+  - name: BusinessRules
+    parameters:
+      service-plan: internal
+      service: business-rules
+    type: org.cloudfoundry.managed-service

@@ -1,0 +1,138 @@
+{
+	"_version": "3.0.0",
+	"identification": {
+		"id": "2e99c967-8f51-48a0-94ae-c15ae6a2f705",
+		"entityType": "bundle"
+	},
+	"payload": {
+		"catalogs": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultCatalogId",
+				"title": "{{title}}",
+				"entityType": "catalog",
+				"i18n": "i18n/defaultCatalogId.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "sap.pv.instances",
+					"vizId": "pv-showInstances"
+				}, {
+					"id": "sap.pv.ovp",
+					"vizId": "pv-showScenarioOverview"
+				}, {
+					"id": "sap.pv.processworkspace",
+					"vizId": "pv-processworkspace"
+				}]
+			}
+		}],
+		"groups": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "processApps",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/processApps.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "cross.fnd.fiori.inbox-0-1597313528753",
+					"appId": "cross.fnd.fiori.inbox",
+					"vizId": "WorkflowTask-DisplayMyInbox"
+				}, {
+					"id": "sap.pv.configurescenarios-1-1597313528753",
+					"appId": "sap.pv.configurescenarios",
+					"vizId": "pv-configurescenarios"
+				}, {
+					"id": "sap.pv.processworkspace-2-1597313528753",
+					"appId": "sap.pv.processworkspace",
+					"vizId": "pv-processworkspace"
+				}, {
+					"id": "sap.pf.pfc-3-1601903823427",
+					"appId": "sap.pf.pfc",
+					"vizId": "wm-configuresapcapitalexpenditureapprovalprocessPackage"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "capexApps",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/capexApps.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.bpm.StartCapex-0-1600419311823",
+					"appId": "com.sap.bpm.StartCapex",
+					"vizId": "startcapex-create"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "masterDataMgmtApps",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/masterDataMgmtApps.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.sap.bpm.countries-0-1595882090802",
+					"appId": "com.sap.bpm.countries",
+					"vizId": "countries-manage"
+				}, {
+					"id": "com.sap.bpm.currencies-1-1595882090802",
+					"appId": "com.sap.bpm.currencies",
+					"vizId": "currencies-manage"
+				}, {
+					"id": "com.sap.bpm.investmenttypes-2-1595883358981",
+					"appId": "com.sap.bpm.investmenttypes",
+					"vizId": "investmenttypes-manage"
+				}, {
+					"id": "com.sap.bpm.divisions-3-1596194442225",
+					"appId": "com.sap.bpm.divisions",
+					"vizId": "divisions-manage"
+				}]
+			}
+		}],
+		"sites": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "c85cc135-7e9e-40e5-9ac0-bc5ec0ab5868",
+				"entityType": "site",
+				"title": "SAP Fiori launchpad site on Cloud Foundry",
+				"description": "SAP Fiori launchpad site on Cloud Foundry, deployed from WING"
+			},
+			"payload": {
+				"config": {
+					"ushellConfig": {
+						"renderers": {
+							"fiori2": {
+								"componentData": {
+									"config": {
+										"enableRecentActivity": false,
+										"applications": {
+											"Shell-home": {}
+										},
+										"enableSearch": true,
+										"enablePersonalization": true,
+										"enableSetTheme": true,
+										"enableSetLanguage": true
+									}
+								}
+							}
+						}
+					}
+				},
+				"groupsOrder": ["processApps", "capexApps", "masterDataMgmtApps"],
+				"sap.cloud.portal": {
+					"config": {
+						"theme.id": "sap_fiori_3",
+						"theme.active": ["sap_fiori_3", "sap_fiori_3_dark", "sap_belize_hcb", "sap_belize_hcw"]
+					}
+				}
+			}
+		}]
+	}
+}

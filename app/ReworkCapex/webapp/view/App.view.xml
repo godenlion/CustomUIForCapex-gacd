@@ -1,0 +1,230 @@
+<mvc:View controllerName="com.sap.bpm.ReworkCapex.controller.App" 
+            xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	        xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:uxap="sap.uxap"
+	        xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	        xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<App id="app">
+		<pages>
+			<Page id="page" title="{i18n>appTitle}" showHeader="false" titleAlignment="Center">
+				<content>
+                <uxap:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+                    <uxap:headerTitle>
+						<uxap:ObjectPageHeader objectTitle="{mCommon>/sReworkTitle}"></uxap:ObjectPageHeader>
+					</uxap:headerTitle>
+					<uxap:sections>
+                        <!-- Requester -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>REQUESTER}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<uxap:blocks>
+										<f:SimpleForm id="requesterFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="true">
+											<f:content>
+												<Label text="{i18n>FIRST_NAME}"/>
+												<Input value="{/Requester/FirstName}" valueState="{mCommon>/FirstNameState}"
+													valueStateText="{mCommon>/FirstNameStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>LAST_NAME}"/>
+												<Input value="{/Requester/LastName}" valueState="{mCommon>/LastNameState}"
+													valueStateText="{mCommon>/LastNameStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>COMMENT_FROM_REQUESTER}" />
+                                                <TextArea rows="5" value="{/Requester/Comments}" enabled="{mCommon>/oEnable/sInput}"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+                        <!-- Investment Details -->
+						<uxap:ObjectPageSection titleUppercase="false" showTitle="true" title="{i18n>INVESTMENT_DETAILS}" titleLevel="H6">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection >
+									<uxap:blocks>
+										<f:SimpleForm id="detailsFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="false">
+											<f:content>
+                                                <Label text="{i18n>LABEL_TITLE}"/>
+                                                <Input value="{/Title}" valueState="{mCommon>/TitleState}"
+													valueStateText="{mCommon>/TitleStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>REQUEST_ID}"/>
+                                                <Input value="{/RequestId}" editable="false" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>TYPE}"/>
+                                                <Input showValueHelp="true" valueHelpOnly="true" value ="{/Investment/Type}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/TypeState}"
+													valueStateText="{mCommon>/TypeStateText}" app:inputCustomData="aInvestmentTypeValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>COUNTRY}"/>
+                                                <Input showValueHelp="true" valueHelpOnly="true" value ="{/Investment/Country}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/CountryState}"
+													valueStateText="{mCommon>/CountryStateText}" app:inputCustomData="aCountryValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>BUSINESS_UNIT}" required="true"/>
+                                                <Input showValueHelp="true" valueHelpOnly="true" value ="{/Investment/BusinessUnit}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/DivisionState}"
+													valueStateText="{mCommon>/DivisionStateText}" app:inputCustomData="aDivisionValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>DESCRIPTION}" />
+                                                <TextArea value="{/Investment/Description}" rows="5" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>CAPEX}"></Label>
+												<Input value="{/Investment/CAPEX}" type="Number" valueState="{mCommon>/CAPEXState}"
+													valueStateText="{mCommon>/CAPEXStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>OPEX}"></Label>
+												<Input value="{/Investment/OPEX}" valueState="{mCommon>/OPEXState}"
+													valueStateText="{mCommon>/OPEXStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>TOTAL_COST}"></Label>
+                                                <Input value="{/Investment/TotalCost}"  type="Number" valueState="{mCommon>/TotalCostState}"
+													valueStateText="{mCommon>/TotalCostStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>IRR}" ></Label>
+												<Input value="{/Investment/IRR}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>ROI}" ></Label>
+                                                <Input value="{/Investment/ROI}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>CURRENCY}"></Label>
+                                                <Input showValueHelp="true" valueHelpOnly="true" value="{/Investment/Currency}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/CurrencyState}"
+													valueStateText="{mCommon>/CurrencyStateText}" app:inputCustomData="aCurrencyValueHelpType" change="onChange"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+                        <!-- Sustainability -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>SUSTAINABILITY}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<uxap:blocks>
+										<f:SimpleForm id="sustainabilityFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="true">
+											<f:content>
+												<Label text="{i18n>ENERGY_EFFICIENCY} %"/>
+												<Input value="{/Sustainability/EnergyEfficiency}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>CO2_EFFICIENCY} %"/>
+												<Input value="{/Sustainability/CO2Efficiency}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>ENERGY_COST_SAVINGS} %" />
+                                                <Input value="{/Sustainability/EnergyCostSavings}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>WATER_SAVINGS} %" />
+                                                <Input value="{/Sustainability/WaterSavings}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+                        <!-- Attachments -->
+						<uxap:ObjectPageSection titleUppercase="false" showTitle="true" title="{i18n>ATTACHMENTS}" titleLevel="H6">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection >
+									<uxap:blocks>
+										<f:SimpleForm id="attachmentsFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="false">
+											<f:content>
+												<UploadCollection id="UploadCollection" maximumFileSize="10" multiple="false"  
+                                                    instantUpload="true" change="onAttachmentsChange" uploadEnabled="{mCommon>/oEnable/sInput}"
+                                                    fileSizeExceed="onFileSizeExceed" beforeUploadStarts="onBeforeUploadStarts" 
+                                                    uploadButtonInvisible="false" uploadComplete="onUploadComplete"
+                                                    items="{
+                                                        path: 'attachmentsModel>/objects',
+                                                        filters : [
+                                                                { path : 'object/succinctProperties/cmis:baseTypeId', operator : 'EQ', value1 : 'cmis:document'}
+                                                                ],
+                                                        templateShareable: false
+                                                    }">
+													<items>
+                                                        <UploadCollectionItem
+                                                            documentId="{attachmentsModel>object/succinctProperties/cmis:objectId}"
+                                                            fileName="{attachmentsModel>object/succinctProperties/cmis:name}"
+                                                            mimeType="{attachmentsModel>object/succinctProperties/cmis:contentStreamMimeType}"
+                                                            url="{
+                                                                path: 'attachmentsModel>object/succinctProperties/cmis:objectId',
+                                                                formatter: '.formatDownloadUrl'
+                                                                }"
+                                                            enableEdit="false" enableDelete="{mCommon>/oEnable/sInput}" visibleDelete="{mCommon>/oEnable/sInput}"
+                                                            visibleEdit="false" deletePress="onDeletePressed">
+                                                                <attributes>
+                                                                    <ObjectAttribute title="{i18n>UPLOADED_BY}"
+                                                                        text="{attachmentsModel>object/succinctProperties/cmis:createdBy}"
+                                                                        active="false" class="displayContents"/>
+                                                                    <ObjectAttribute title="{i18n>UPLOADED_ON}"
+                                                                        text="{
+                                                                            path: 'attachmentsModel>object/succinctProperties/cmis:creationDate',
+                                                                            formatter: '.formatTimestampToDate'
+                                                                            }"
+                                                                        active="false" class="displayContents"/>
+                                                                    <ObjectAttribute title="{i18n>FILE_SIZE}"
+                                                                        text="{
+                                                                            path: 'attachmentsModel>object/succinctProperties/cmis:contentStreamLength',
+                                                                            formatter: '.formatFileLength'
+                                                                            }"
+                                                                        active="false" class="displayContents"/>
+                                                                </attributes>
+                                                        </UploadCollectionItem>
+                                                    </items>
+												</UploadCollection>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+                        <!-- Comments -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>COMMENTS}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<uxap:blocks>
+										<f:SimpleForm id="commentsFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="true">
+											<f:content>
+												<Label text="{i18n>REWORK_COMMENTS}"/>
+                                                <TextArea rows="10" value="{/comments}" editable="true"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+                        <!-- History -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>HISTORY}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<uxap:blocks>
+                                        <Table inset="false" 
+                                        items="{
+			                                path: '/History'
+		                                    }">
+		                                    <columns>
+			                                    <Column>
+				                                    <Text text="{i18n>USER}" />
+			                                    </Column>
+                                                <Column>
+				                                    <Text text="{i18n>ROLE}" />
+			                                    </Column>
+                                                <Column>
+				                                    <Text text="{i18n>DECISION}" />
+			                                    </Column>
+                                                <Column>
+				                                    <Text text="{i18n>COMMENT}" />
+			                                    </Column>
+		                                    </columns>
+		                                    <items>
+			                                    <ColumnListItem>
+				                                    <cells>
+					                                    <Text text="{Id}" />
+                                                        <Text text="{Role}" />
+                                                        <Text text="{Decision}" />
+                                                        <Text text="{Comments}" />
+				                                    </cells>
+			                                    </ColumnListItem>
+		                                    </items>
+	                                    </Table>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>                
+					</uxap:sections>
+				</uxap:ObjectPageLayout>
+                </content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

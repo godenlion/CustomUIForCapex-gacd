@@ -1,0 +1,190 @@
+<mvc:View controllerName="com.sap.bpm.StartCapex.controller.ExpenditureRequest"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:uxap="sap.uxap"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+    id="ExpenditureRequest">
+	<App>
+		<Page title="{i18n>CAPITAL_EXPENDITURE_REQUEST}" showFooter="true" showHeader="false">
+			<content>
+				<uxap:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false">
+					<uxap:headerTitle>
+						<uxap:ObjectPageHeader objectTitle="{i18n>CAPITAL_EXPENDITURE_REQUEST}"></uxap:ObjectPageHeader>
+					</uxap:headerTitle>
+					<uxap:sections>
+						<!-- Requester -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>REQUESTER}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<uxap:blocks>
+										<f:SimpleForm id="requesterFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="true">
+											<f:content>
+												<Label text="{i18n>FIRST_NAME}" required="true"/>
+												<Input id="requesterFirstName" value="{mCommon>/oRequesterDetails/sRequesterFirstName}" valueState="{mCommon>/sRequesterFirstNameState}"
+													valueStateText="{mCommon>/sRequesterFirstNameStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>LAST_NAME}" required="true"/>
+												<Input id="requesterLastName" value="{mCommon>/oRequesterDetails/sRequesterLastName}" valueState="{mCommon>/sRequesterLastNameState}"
+													valueStateText="{mCommon>/sRequesterLastNameStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>EMAIL_ADDRESS}" required="true"/>
+												<Input id="requesterEmail" value="{mCommon>/oRequesterDetails/sRequesterEmail}" placeholder="username@example.com" valueState="{mCommon>/sRequesterEmailState}"
+													valueStateText="{mCommon>/sRequesterEmailStateText}" type="Email" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>USER_ID}" required="true"/>
+												<Input id="requesterUserId" value="{mCommon>/oRequesterDetails/sRequesterUserId}" placeholder="P000123" valueState="{mCommon>/sRequesterUserIdState}"
+													valueStateText="{mCommon>/sRequesterUserIdStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>COMMENT_FROM_REQUESTER}" required="false"/>
+                                                <TextArea id="requesterComment" rows="5" value="{mCommon>/oRequesterDetails/sRequesterComment}" enabled="{mCommon>/oEnable/sInput}"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+						<!-- Investment Details -->
+						<uxap:ObjectPageSection titleUppercase="false" showTitle="true" title="{i18n>INVESTMENT_DETAILS}" titleLevel="H6">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection >
+									<uxap:blocks>
+										<f:SimpleForm id="detailsFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="false">
+											<f:content>
+                                                <Label text="{i18n>REQUEST_ID}" required="true"/>
+												<Input id="reqId" value="{mCommon>/oInvestmentDetails/sRequestId}" editable="false" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>LABEL_TITLE}" required="true"/>
+												<Input id="investmentDetailsTitle" value="{mCommon>/oInvestmentDetails/sTitle}" valueState="{mCommon>/sTitleState}"
+													valueStateText="{mCommon>/sTitleStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>TYPE}" required="true"/>
+                                                <Input id="investmentDetailsInvestmentType" showValueHelp="true" valueHelpOnly="true" value ="{mCommon>/oInvestmentDetails/sTypeName}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/sTypeNameState}"
+													valueStateText="{mCommon>/sTypeNameStateText}" app:inputCustomData="aInvestmentTypeValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>COUNTRY}" required="true"/>
+                                                <Input id="investmentDetailsCountry" showValueHelp="true" valueHelpOnly="true" value ="{mCommon>/oInvestmentDetails/sCountryName}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/sCountryNameState}"
+													valueStateText="{mCommon>/sCountryNameStateText}" app:inputCustomData="aCountryValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>BUSINESS_UNIT}" required="true"/>
+                                                <Input id="investmentDetailsDivision" showValueHelp="true" valueHelpOnly="true" value ="{mCommon>/oInvestmentDetails/sDivisionName}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/sDivisionNameState}"
+													valueStateText="{mCommon>/sDivisionNameStateText}" app:inputCustomData="aDivisionValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>DESCRIPTION}" required="false"/>
+                                                <TextArea id="investmentDetailsDescription" value="{mCommon>/oInvestmentDetails/sInvestmentDesc}" rows="5" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>CAPEX}" required="true" ></Label>
+												<Input id="investmentDetailsCAPEX" value="{mCommon>/oInvestmentDetails/sCapexValue}" type="Number" valueState="{mCommon>/sCapexValueState}"
+													valueStateText="{mCommon>/sCapexValueStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>OPEX}" required="true"></Label>
+												<Input id="investmentDetailsOPEX" value="{mCommon>/oInvestmentDetails/sOpexValue}" valueState="{mCommon>/sOpexValueState}"
+													valueStateText="{mCommon>/sOpexValueStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>TOTAL_COST}" required="true"></Label>
+                                                <Input id="investmentDetailsTotalCost" value="{mCommon>/oInvestmentDetails/sTotalCost}" type="Number" valueState="{mCommon>/sTotalCostState}"
+													valueStateText="{mCommon>/sTotalCostStateText}" change="onChange" enabled="{mCommon>/oEnable/sInput}"/>				
+                                                <Label text="{i18n>CURRENCY}" required="true"></Label>
+                                                <Input id="investmentDetailsCurrency" showValueHelp="true" valueHelpOnly="true" value ="{mCommon>/oInvestmentDetails/sCurrencyName}"
+													valueHelpRequest=".onValueHelpRequested" enabled="{mCommon>/oEnable/sInput}" valueState="{mCommon>/sCurrencyNameState}"
+													valueStateText="{mCommon>/sCurrencyNameStateText}" app:inputCustomData="aCurrencyValueHelpType" change="onChange"/>
+                                                <Label text="{i18n>IRR}" required="false"></Label>
+												<Input id="investmentDetailsIRR" value="{mCommon>/oInvestmentDetails/sIRR}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>ROI}" required="false"></Label>
+												<Input id="investmentDetailsROI" value="{mCommon>/oInvestmentDetails/sROI}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+						<!-- Sustainability -->
+						<uxap:ObjectPageSection titleUppercase="false" title="{i18n>SUSTAINABILITY}" titleLevel="H6" showTitle="true">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection >
+									<uxap:blocks>
+										<f:SimpleForm id="sustainabilityFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="false">
+											<f:content>
+												<Label text="{i18n>ENERGY_EFFICIENCY} %"/>
+												<Input value="{mCommon>/oSustainabilityDetails/sEnergyEfficiency}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+												<Label text="{i18n>CO2_EFFICIENCY} %"/>
+												<Input value="{mCommon>/oSustainabilityDetails/sCO2Efficiency}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>ENERGY_COST_SAVINGS} %" />
+												<Input value="{mCommon>/oSustainabilityDetails/sEnergySavings}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+                                                <Label text="{i18n>WATER_SAVINGS} %" />
+												<Input value="{mCommon>/oSustainabilityDetails/sWaterSavings}" type="Number" enabled="{mCommon>/oEnable/sInput}"/>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+						<!-- Attachments -->
+						<uxap:ObjectPageSection titleUppercase="false" showTitle="true" title="{i18n>ATTACHMENTS}" titleLevel="H6">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection >
+									<uxap:blocks>
+										<f:SimpleForm id="attachmentsFormId" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+											labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+											singleContainerFullSize="false">
+											<f:content>
+												<UploadCollection id="UploadCollection" maximumFileSize="10" multiple="false"  
+                                                    instantUpload="true" change="onAttachmentsChange" uploadEnabled="{mCommon>/oEnable/sInput}"
+                                                    fileSizeExceed="onFileSizeExceed" beforeUploadStarts="onBeforeUploadStarts" 
+                                                    uploadButtonInvisible="false" uploadComplete="onUploadComplete"
+                                                    items="{
+                                                        path: '/objects',
+                                                        filters : [
+                                                                { path : 'object/succinctProperties/cmis:baseTypeId', operator : 'EQ', value1 : 'cmis:document'}
+                                                                ],
+                                                        templateShareable: false
+                                                    }">
+													<items>
+                                                        <UploadCollectionItem
+                                                            documentId="{object/succinctProperties/cmis:objectId}"
+                                                            fileName="{object/succinctProperties/cmis:name}"
+                                                            mimeType="{object/succinctProperties/cmis:contentStreamMimeType}"
+                                                            url="{
+                                                                path: 'object/succinctProperties/cmis:objectId',
+                                                                formatter: '.formatDownloadUrl'
+                                                                }"
+                                                            enableEdit="false" enableDelete="{mCommon>/oEnable/sInput}" visibleDelete="{mCommon>/oEnable/sInput}"
+                                                            visibleEdit="false" deletePress="onDeletePressed">
+                                                                <attributes>
+                                                                    <ObjectAttribute title="{i18n>UPLOADED_BY}"
+                                                                        text="{object/succinctProperties/cmis:createdBy}"
+                                                                        active="false" class="displayContents"/>
+                                                                    <ObjectAttribute title="{i18n>UPLOADED_ON}"
+                                                                        text="{
+                                                                            path: 'object/succinctProperties/cmis:creationDate',
+                                                                            formatter: '.formatTimestampToDate'
+                                                                            }"
+                                                                        active="false" class="displayContents"/>
+                                                                    <ObjectAttribute title="{i18n>FILE_SIZE}"
+                                                                        text="{
+                                                                            path: 'object/succinctProperties/cmis:contentStreamLength',
+                                                                            formatter: '.formatFileLength'
+                                                                            }"
+                                                                        active="false" class="displayContents"/>
+                                                                </attributes>
+
+                                                        </UploadCollectionItem>
+                                                    </items>
+												</UploadCollection>
+											</f:content>
+										</f:SimpleForm>
+									</uxap:blocks>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+					</uxap:sections>
+				</uxap:ObjectPageLayout>
+			</content>
+			<footer >
+				<OverflowToolbar id="mFooterId">
+                    <ToolbarSpacer/>
+					<Button text="{i18n>REQUEST_APPROVAL}" press="onPressRequestApproval" enabled="{mCommon>/oEnable/sInput}" type="Emphasized" class="sapUiTinyMarginEnd"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</App>
+</mvc:View>

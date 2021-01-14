@@ -1,0 +1,107 @@
+{
+    "oRequesterDetails": {
+        "sRequesterFirstName": "",
+        "sRequesterLastName": "",
+        "sRequesterEmail": "",
+        "sRequesterUserId": "",
+        "sRequesterComment": ""
+    },
+    "oInvestmentDetails": {
+        "sRequestId": "",
+        "sTitle": "",
+        "sTypeName": "",
+        "sTypeCode": "",
+        "sCountryName": "",
+        "sCountryCode": "",
+        "sDivisionName": "",
+        "sDivisionCode": "",
+        "sCurrencyName": "",
+        "sCurrencyCode": "",
+        "sInvestmentDesc": "",
+        "sCapexValue": "",
+        "sOpexValue": "",
+        "sTotalCost": "",
+        "sIRR": "",
+        "sROI": ""
+    },
+    "oSustainabilityDetails": {
+        "sEnergyEfficiency": "",
+        "sCO2Efficiency": "",
+        "sEnergySavings": "",
+        "sWaterSavings": ""
+    },
+    "oCountryValueHelpType": {
+        "cols": [
+            {
+                "label": "Code",
+                "template": "code",
+                "width": "30%"
+            },
+            {
+                "label": "Name",
+                "template": "text"
+            }
+        ]
+    },
+    "oInvestmentTypeValueHelpType": {
+        "cols": [
+            {
+                "label": "Type",
+                "template": "type",
+                "width": "30%"
+            },
+            {
+                "label": "Name",
+                "template": "text"
+            }
+        ]
+    },
+    "oDivisionValueHelpType": {
+        "cols": [
+            {
+                "label": "Code",
+                "template": "code",
+                "width": "30%"
+            },
+            {
+                "label": "Name",
+                "template": "text"
+            }
+        ]
+    },
+    "oCurrencyValueHelpType": {
+        "cols": [
+            {
+                "label": "Code",
+                "template": "code",
+                "width": "30%"
+            },
+            {
+                "label": "Name",
+                "template": "text"
+            }
+        ]
+    },
+    "oEnable": {
+        "iRequestId": false,
+        "bRegister": true,
+        "sInput": true
+    },
+    "oVisible": {
+        "sText": false,
+        "sInput": true
+    },
+    "sSelectedInput": "",
+    "oDialog": {
+        "sFilterLabel": "",
+        "sDialogDes": "",
+        "sDialogKey": "",
+        "sTitle": ""
+    },
+    "sDefinitionId": "",
+    "sWorkflowId": "",
+    "sLangCode": "",
+    "sDefaultLang": "EN",
+    "sDefaultLangName": "English",
+    "usingDefaultLang": false
+}

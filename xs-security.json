@@ -1,0 +1,44 @@
+{
+    "xsappname": "capexrequestmanagement",
+    "tenant-mode": "dedicated",
+    "scopes": [
+        {
+            "name": "uaa.user",
+            "description": "UAA"
+        },
+        {
+            "name": "$XSAPPNAME.CapexDataModelViewer",
+            "description": "CapexDataModelViewer"
+        },
+        {
+            "name": "$XSAPPNAME.CapexDataModelAdmin",
+            "description": "CapexDataModelAdmin"
+        }
+    ],
+    "attributes": [],
+    "role-templates": [
+        {
+            "name": "CapexDataModelViewer",
+            "description": "generated",
+            "scope-references": [
+                "$XSAPPNAME.CapexDataModelViewer"
+            ],
+            "attribute-references": []
+        },
+        {
+            "name": "CapexDataModelAdmin",
+            "description": "generated",
+            "scope-references": [
+                "$XSAPPNAME.CapexDataModelAdmin"
+            ],
+            "attribute-references": []
+        },
+        {
+            "name": "Token_Exchange",
+            "description": "UAA",
+            "scope-references": [
+                "uaa.user"
+            ]
+        }
+    ]
+}

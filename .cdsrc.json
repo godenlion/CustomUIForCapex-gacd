@@ -1,0 +1,31 @@
+{
+    "[development]": {
+        "auth": {
+            "passport": {
+                "strategy": "mock",
+                "users": {
+                    "viewer": {
+                        "password": "viewer",
+                        "ID": "viewer",
+                        "userAttributes": {
+                            "email": "viewer@example.com"
+                        },
+                        "roles": [
+                            "CapexDataModelViewer"
+                        ]
+                    },
+                    "manager": {
+                        "password": "manager",
+                        "ID": "manager",
+                        "userAttributes": {
+                            "email": "manager@example.com"
+                        },
+                        "roles": [
+                            "СapexDataModelAdmin"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
